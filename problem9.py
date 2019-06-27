@@ -11,7 +11,8 @@ def biggest_sum(numbers: list) -> int:
         current = 1 - current
     return max(running)
 
+
 if __name__ == "__main__":
-    seq = [random.randint(1,9) for i in range(10)]
+    seq = [random.randint(1, 9) for i in range(10)]
     print(f"seq: {seq}, res: {biggest_sum(seq)}")
     biggest_sum([2, 4])
