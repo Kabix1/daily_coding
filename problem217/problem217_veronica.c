@@ -2,7 +2,7 @@
 #include<time.h>
 int main () {
   int num;
-  int i;
+  long long i;
   int found = 0;
   clock_t start, stop;
   scanf("%d", &num);
@@ -15,6 +15,6 @@ int main () {
     }
   }
   stop = clock();
-  printf("%6.3f", start - stop);
+  printf("%6.3f, %6.3f, %6d\n", start, stop, found);
   return 0;
 }
