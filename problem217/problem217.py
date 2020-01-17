@@ -7,7 +7,6 @@ import numpy as np
 import time_functions
 import matplotlib.pyplot as plt
 import math
-import random
 
 # import memory_profiler
 from memory_profiler import profile
@@ -16,13 +15,23 @@ from memory_profiler import profile
 scale = 10**(10**4)
 
 
+def get_file_input(filename: str):
+    with open(filename) as f:
+        content = f.readlines()
+    numbers = [int(x.strip()) for x in content]
+    return numbers
+
+
 def main():
     max, num = scale, 10**2
-    # time_functions.plot_times(
-    #     [next_sparse_string, next_sparse_bit, next_sparse_louis, log],
-    #     # time_functions.plot_times([next_sparse_string, log],
-    #     timer.get_log_sample(1, max, num),
-    #     file_name="problem217_log.data")
+    sample = get_file_input("input.txt")
+    time_functions.plot_times(
+        [next_sparse_string, next_sparse_bit, next_sparse_louis],
+        # time_functions.plot_times([next_sparse_string, log],
+        sample,
+        file_name="problem217_log.data",
+        repeats=1,
+        n_tests=10**4)
 
     # data = np.loadtxt("problem217.data")
     # x = data[0, :]
@@ -36,15 +45,15 @@ def main():
     # ax.set_ylabel('Time [s]')
     plt.show()
 
-    max = 10**3
-    for n in timer.get_lin_sample(1, max, num):
-        s_sol = next_sparse_string(n)
-        b_sol = next_sparse_bit(n)
-        l_sol = next_sparse_louis(n)
-        s = bin(n).split('b')[1]
-        print(
-            f"{n} ({s}): {s_sol} ({bin(s_sol)}), {b_sol} ({bin(b_sol)}), {l_sol} ({bin(l_sol)})"
-        )
+    # max = 10**3
+    # for n in timer.get_lin_sample(1, max, num):
+    #     s_sol = next_sparse_string(n)
+    #     b_sol = next_sparse_bit(n)
+    #     l_sol = next_sparse_louis(n)
+    #     s = bin(n).split('b')[1]
+    #     print(
+    #         f"{n} ({s}): {s_sol} ({bin(s_sol)}), {b_sol} ({bin(b_sol)}), {l_sol} ({bin(l_sol)})"
+    #     )
     # print(end_timers())
 
 
@@ -141,11 +150,13 @@ def get_clusters(s):
     ones = s.split("0")
     return [cluster for cluster in ones if len(cluster) >= 2]
 
+
 def generate_numbers():
     sample = np.random.randint(1, 2**30, 100)
     for n in sample:
         print(n)
 
+
 if __name__ == "__main__":
-    generate_numbers()
-    # main()
+    # generate_numbers()
+    main()
